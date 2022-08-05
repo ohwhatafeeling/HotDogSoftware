@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -66,6 +67,12 @@ public class InputForm extends JFrame implements ActionListener {
 	ButtonGroup sausageGroup;
 	
 	JButton submitButton;
+	
+	String bunSelected = "";
+	String sausageSelected = "";
+	ArrayList<String> toppingSelected = new ArrayList<String>();
+	ArrayList<String> sauceSelected = new ArrayList<String>();
+	String orderString = "";
 	
 	
 	InputForm() {
@@ -176,7 +183,11 @@ public class InputForm extends JFrame implements ActionListener {
 			sauceBoxes[i].setActionCommand(sauceNames[i]);
 		}
 		
+		plainBun.setSelected(true);
+		standardSausage.setSelected(true);
+		
 		submitButton = new JButton("Submit");
+		submitButton.addActionListener(this);
 		submitPanel.add(submitButton);
 		
 		this.add(titlePanel);
@@ -191,8 +202,31 @@ public class InputForm extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == submitButton) {
+			bunSelected = bunGroup.getSelection().getActionCommand();
+			sausageSelected = sausageGroup.getSelection().getActionCommand();
+			for (JCheckBox box : toppingBoxes) {
+				if (box.isSelected()) {
+					toppingSelected.add(box.getActionCommand());
+				}
+			}
+			for (JCheckBox box : sauceBoxes) {
+				if (box.isSelected()) {
+					sauceSelected.add(box.getActionCommand());
+				}
+			}
+			orderString = "BUN: " + bunSelected + "\nSAUSAGE: " + sausageSelected + "\nTOPPING(S): " + toppingSelected + "\nSAUCE(S): " + sauceSelected + "\n";
+			System.out.println("**** NEW ORDER ****");
+			System.out.println(orderString);
+			for (JCheckBox box: toppingBoxes) {
+				box.setSelected(false);
+			}
+			for (JCheckBox box : sauceBoxes) {
+				box.setSelected(false);;
+			}
+			toppingSelected.clear();
+			sauceSelected.clear();
+		}
 	}
 	
 }
