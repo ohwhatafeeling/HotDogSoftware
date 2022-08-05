@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class InputForm extends JFrame implements ActionListener {
 	JPanel titlePanel;
@@ -26,6 +27,8 @@ public class InputForm extends JFrame implements ActionListener {
 	JLabel sausageLabel;
 	JLabel toppingLabel;
 	JLabel sauceLabel;
+	
+	JTextField nameTextField;
 	
 	JRadioButton[] bunButtons = new JRadioButton[3];
 	JRadioButton noBun, plainBun, wholemealBun;
@@ -109,7 +112,7 @@ public class InputForm extends JFrame implements ActionListener {
 		submitPanel.setBounds(0, 500, 420, 100);
 		submitPanel.setBackground(Color.orange);
 		
-		titleLabel = new JLabel("Enter order:");
+		titleLabel = new JLabel("Enter customers name:");
 		bunLabel = new JLabel("Select bun:");
 		sausageLabel = new JLabel("Select sausage:");
 		toppingLabel = new JLabel("Select topping(s):");
@@ -120,6 +123,10 @@ public class InputForm extends JFrame implements ActionListener {
 		sausagePanel.add(sausageLabel);
 		toppingPanel.add(toppingLabel);
 		saucePanel.add(sauceLabel);
+		
+		nameTextField = new JTextField();
+		nameTextField.setPreferredSize(new Dimension(150, 40));
+		titlePanel.add(nameTextField);
 		
 		bunGroup = new ButtonGroup();
 		sausageGroup = new ButtonGroup();
@@ -207,6 +214,7 @@ public class InputForm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == submitButton) {
+			name = nameTextField.getText();
 			bunSelected = bunGroup.getSelection().getActionCommand();
 			sausageSelected = sausageGroup.getSelection().getActionCommand();
 			for (JCheckBox box : toppingBoxes) {
@@ -234,6 +242,9 @@ public class InputForm extends JFrame implements ActionListener {
 			}
 			toppingSelected.clear();
 			sauceSelected.clear();
+			name = "";
+			nameTextField.setText("");
+			orderNumber++;
 		}
 	}
 	
