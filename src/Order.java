@@ -1,13 +1,13 @@
 
 public class Order {
-	int orderNumber;
-	String name;
-	Hotdog hotdogSelection;
+	private int orderNumber;
+	private String name;
+	private Hotdog hotdogSelection;
 	
 	Order(int orderNumber, String name, Hotdog hotdogSelection) {
-		setOrderNumber(orderNumber);
-		setName(name);
-		setHotdogSelection(hotdogSelection);
+		this.orderNumber = orderNumber;
+		this.name = name;
+		this.hotdogSelection = hotdogSelection;
 	}
 	
 	public void setOrderNumber(int orderNumber) {
@@ -32,5 +32,11 @@ public class Order {
 	
 	public Hotdog getHotdog() {
 		return this.hotdogSelection;
+	}
+	
+	public String toString() {
+		return "ORDER NUMBER: " + getOrderNumber() +
+				"\nNAME: " + getName() +
+				"\nHOTDOG:\n" + getHotdog();
 	}
 }

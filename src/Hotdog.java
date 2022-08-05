@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 
 public class Hotdog {
-	String bunSelection;
-	String sausageSelection;
-	ArrayList<String> toppingSelection = new ArrayList<String>();
-	ArrayList<String> sauceSelection = new ArrayList<String>();
+	private String bunSelection;
+	private String sausageSelection;
+	private ArrayList<String> toppingSelection = new ArrayList<String>();
+	private ArrayList<String> sauceSelection = new ArrayList<String>();
 	
 	Hotdog(String bunSelection, String sausageSelection, ArrayList<String> toppingSelection, ArrayList<String> sauceSelection) {
-		setBunSelection(this.bunSelection);
-		setSausageSelection(this.sausageSelection);
-		setToppingSelection(this.toppingSelection);
-		setSauceSelection(this.sauceSelection);
+		this.bunSelection = bunSelection;
+		this.sausageSelection = sausageSelection;
+		this.toppingSelection = toppingSelection;
+		this.sauceSelection = sauceSelection;
 	}
 	
 	public void setBunSelection(String bunSelection) {
@@ -47,6 +47,13 @@ public class Hotdog {
 	
 	public ArrayList<String> getSauceSelection() {
 		return this.sauceSelection;
+	}
+	
+	public String toString() {
+		return "BUN: " + getBunSelection() + 
+				"\nSAUSAGE: " + getSausageSelection() + 
+				"\nTOPPING(S): " + getToppingSelection() + 
+				"\nSAUCE(S): " + getSauceSelection() + "\n";
 	}
 
 }

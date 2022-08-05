@@ -68,12 +68,16 @@ public class InputForm extends JFrame implements ActionListener {
 	
 	JButton submitButton;
 	
+	int orderNumber = 69;
+	String name = "tomo";
 	String bunSelected = "";
 	String sausageSelected = "";
 	ArrayList<String> toppingSelected = new ArrayList<String>();
 	ArrayList<String> sauceSelected = new ArrayList<String>();
 	String orderString = "";
 	
+	Hotdog hotdog;
+	Order order;
 	
 	InputForm() {
 		this.setSize(420, 600);
@@ -215,9 +219,13 @@ public class InputForm extends JFrame implements ActionListener {
 					sauceSelected.add(box.getActionCommand());
 				}
 			}
-			orderString = "BUN: " + bunSelected + "\nSAUSAGE: " + sausageSelected + "\nTOPPING(S): " + toppingSelected + "\nSAUCE(S): " + sauceSelected + "\n";
+			
+			hotdog = new Hotdog(bunSelected, sausageSelected, toppingSelected, sauceSelected);
+			order = new Order(orderNumber, name, hotdog);
+
 			System.out.println("**** NEW ORDER ****");
-			System.out.println(orderString);
+			System.out.println(order.toString());
+			
 			for (JCheckBox box: toppingBoxes) {
 				box.setSelected(false);
 			}
