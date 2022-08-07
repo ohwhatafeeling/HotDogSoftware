@@ -35,7 +35,7 @@ public class Order {
 	}
 	
 	public String toString() {
-		return "ORDER NUMBER: " + getOrderNumber() +
+		return "**** NEW ORDER ****\nORDER NUMBER: " + getOrderNumber() +
 				"\nNAME: " + getName() +
 				"\nHOTDOG:\n" + getHotdog();
 	}

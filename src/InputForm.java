@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class InputForm extends JFrame implements ActionListener {
@@ -21,6 +24,7 @@ public class InputForm extends JFrame implements ActionListener {
 	JPanel toppingPanel;
 	JPanel saucePanel;
 	JPanel submitPanel;
+	JPanel displayPanel;
 	
 	JLabel titleLabel;
 	JLabel bunLabel;
@@ -29,6 +33,9 @@ public class InputForm extends JFrame implements ActionListener {
 	JLabel sauceLabel;
 	
 	JTextField nameTextField;
+	JTextArea displayTextArea;
+	
+	JScrollPane displayScroll;
 	
 	JRadioButton[] bunButtons = new JRadioButton[3];
 	JRadioButton noBun, plainBun, wholemealBun;
@@ -83,7 +90,7 @@ public class InputForm extends JFrame implements ActionListener {
 	Order order;
 	
 	InputForm() {
-		this.setSize(420, 600);
+		this.setSize(840, 600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Hot dog business software");
 		this.setLayout(null);
@@ -111,6 +118,10 @@ public class InputForm extends JFrame implements ActionListener {
 		submitPanel = new JPanel();
 		submitPanel.setBounds(0, 500, 420, 100);
 		submitPanel.setBackground(Color.orange);
+		
+		displayPanel = new JPanel();
+		displayPanel.setBounds(420, 0, 420, 600);
+		displayPanel.setBackground(Color.blue);
 		
 		titleLabel = new JLabel("Enter customers name:");
 		bunLabel = new JLabel("Select bun:");
@@ -194,6 +205,14 @@ public class InputForm extends JFrame implements ActionListener {
 			sauceBoxes[i].setActionCommand(sauceNames[i]);
 		}
 		
+		displayTextArea = new JTextArea();
+//		displayTextArea.setPreferredSize(new Dimension(300, 500));
+		
+		displayScroll = new JScrollPane(displayTextArea);
+		displayScroll.setPreferredSize(new Dimension(300, 500));
+		
+		displayPanel.add(displayScroll);
+		
 		plainBun.setSelected(true);
 		standardSausage.setSelected(true);
 		
@@ -207,6 +226,7 @@ public class InputForm extends JFrame implements ActionListener {
 		this.add(toppingPanel);
 		this.add(saucePanel);
 		this.add(submitPanel);
+		this.add(displayPanel);
 		this.setVisible(true);
 		
 	}
@@ -231,8 +251,8 @@ public class InputForm extends JFrame implements ActionListener {
 			hotdog = new Hotdog(bunSelected, sausageSelected, toppingSelected, sauceSelected);
 			order = new Order(orderNumber, name, hotdog);
 
-			System.out.println("**** NEW ORDER ****");
 			System.out.println(order.toString());
+			displayTextArea.setText(displayTextArea.getText() + "\n" + order.toString());
 			
 			for (JCheckBox box: toppingBoxes) {
 				box.setSelected(false);
