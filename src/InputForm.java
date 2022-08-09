@@ -4,7 +4,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -88,6 +94,8 @@ public class InputForm extends JFrame implements ActionListener {
 	
 	Hotdog hotdog;
 	Order order;
+	
+	Queue<Order> orderQueue = new ArrayDeque<Order>();
 	
 	InputForm() {
 		this.setSize(840, 600);
@@ -206,7 +214,6 @@ public class InputForm extends JFrame implements ActionListener {
 		}
 		
 		displayTextArea = new JTextArea();
-//		displayTextArea.setPreferredSize(new Dimension(300, 500));
 		
 		displayScroll = new JScrollPane(displayTextArea);
 		displayScroll.setPreferredSize(new Dimension(300, 500));
@@ -251,7 +258,14 @@ public class InputForm extends JFrame implements ActionListener {
 			hotdog = new Hotdog(bunSelected, sausageSelected, toppingSelected, sauceSelected);
 			order = new Order(orderNumber, name, hotdog);
 
-			System.out.println(order.toString());
+			orderQueue.add(order);
+//			for (Order order : orderQueue) {
+//				System.out.println(order + "\n");
+//			}
+			
+			System.out.println(order);
+			
+//			System.out.println(order.toString());
 			displayTextArea.setText(displayTextArea.getText() + "\n" + order.toString());
 			
 			for (JCheckBox box: toppingBoxes) {
