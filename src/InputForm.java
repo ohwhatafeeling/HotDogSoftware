@@ -22,6 +22,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class InputForm extends JFrame implements ActionListener {
 	JPanel titlePanel;
@@ -40,6 +41,7 @@ public class InputForm extends JFrame implements ActionListener {
 	
 	JTextField nameTextField;
 	JTextArea displayTextArea;
+
 	
 	JScrollPane displayScroll;
 	
@@ -83,6 +85,7 @@ public class InputForm extends JFrame implements ActionListener {
 	ButtonGroup sausageGroup;
 	
 	JButton submitButton;
+	JButton orderCompleteButton;
 	
 	int orderNumber = 69;
 	String name = "tomo";
@@ -213,19 +216,23 @@ public class InputForm extends JFrame implements ActionListener {
 			sauceBoxes[i].setActionCommand(sauceNames[i]);
 		}
 		
-		displayTextArea = new JTextArea();
-		
-		displayScroll = new JScrollPane(displayTextArea);
-		displayScroll.setPreferredSize(new Dimension(300, 500));
-		
-		displayPanel.add(displayScroll);
-		
 		plainBun.setSelected(true);
 		standardSausage.setSelected(true);
 		
 		submitButton = new JButton("Submit");
 		submitButton.addActionListener(this);
 		submitPanel.add(submitButton);
+		
+		displayTextArea = new JTextArea();
+		
+		displayScroll = new JScrollPane(displayTextArea);
+		displayScroll.setPreferredSize(new Dimension(300, 500));
+		
+		orderCompleteButton = new JButton("Order Completete");
+		orderCompleteButton.addActionListener(this);
+
+		displayPanel.add(displayScroll);
+		displayPanel.add(orderCompleteButton);
 		
 		this.add(titlePanel);
 		this.add(bunPanel);
@@ -268,6 +275,7 @@ public class InputForm extends JFrame implements ActionListener {
 //			System.out.println(order.toString());
 			displayTextArea.setText(displayTextArea.getText() + "\n" + order.toString());
 			
+			
 			for (JCheckBox box: toppingBoxes) {
 				box.setSelected(false);
 			}
@@ -279,6 +287,14 @@ public class InputForm extends JFrame implements ActionListener {
 			name = "";
 			nameTextField.setText("");
 			orderNumber++;
+		}
+		if (e.getSource() == orderCompleteButton) {
+			if (orderQueue.size() != 0) {
+				orderQueue.remove();
+				displayTextArea.setText(orderQueue.toString());
+			} else {
+				displayTextArea.setText("No current orders");
+			}
 		}
 	}
 	
